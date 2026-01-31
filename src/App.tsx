@@ -53,7 +53,7 @@ function App() {
   useSyncScroll(editorScrollerRef, previewRef);
 
   // 长图导出
-  const { exportAsImage, exportingType, exportResult, clearResult } = useImageExport(previewContentRef);
+  const { exportAsImage, exportingType, exportResult, clearResult, preload } = useImageExport(previewContentRef);
 
   // 监听导出结果
   useEffect(() => {
@@ -103,6 +103,7 @@ function App() {
             <ExportToolbar
               onDownload={handleDownload}
               onCopy={handleCopy}
+              onMouseEnter={preload} // 鼠标移入时预加载
               exportingType={exportingType}
             />
           </nav>

@@ -4,6 +4,7 @@ import { ExportType } from '../../hooks/useImageExport';
 interface ExportToolbarProps {
   onDownload: () => void;
   onCopy: () => void;
+  onMouseEnter?: () => void;
   exportingType: ExportType;
 }
 
@@ -19,6 +20,7 @@ const LoadingSpinner = () => (
 export const ExportToolbar: React.FC<ExportToolbarProps> = ({
   onDownload,
   onCopy,
+  onMouseEnter,
   exportingType,
 }) => {
   const isDownloading = exportingType === 'download';
@@ -26,7 +28,7 @@ export const ExportToolbar: React.FC<ExportToolbarProps> = ({
   const isBusy = exportingType !== null;
 
   return (
-    <div className={styles.toolbar}>
+    <div className={styles.toolbar} onMouseEnter={onMouseEnter}>
       <button
         className={`${styles.button} ${styles.downloadButton}`}
         onClick={onDownload}
