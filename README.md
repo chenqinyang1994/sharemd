@@ -179,7 +179,13 @@ sharemd/
 
 ## 🌐 在线体验
 
-🎉 **已部署到 Cloudflare Pages**，访问即用：[sharemd.pages.dev](https://sharemd.pages.dev)
+🎉 **已部署到 Cloudflare Pages**，访问即用：
+
+- 🌍 **主域名**: [sharemd.top](https://sharemd.top)
+- 🌍 **备用域名**: [www.sharemd.top](https://www.sharemd.top)
+- 🔗 **Pages域名**: [sharemd.pages.dev](https://sharemd.pages.dev)
+
+✅ 全球CDN加速 · 自动HTTPS · Brotli压缩
 
 ## 🚀 快速开始
 
