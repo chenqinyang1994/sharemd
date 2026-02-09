@@ -50,9 +50,9 @@ function App() {
   // 监听全屏提示
   useEffect(() => {
     if (showFullscreenMessage) {
-      setGlobalMessage({ content: '按 ESC 退出全屏' });
+      setGlobalMessage({ content: t('fullscreen.exitHint') });
     }
-  }, [showFullscreenMessage]);
+  }, [showFullscreenMessage, t]);
 
   // 包装 handleModeChange 以控制过渡动画
   const handleModeChangeWithTransition = useCallback((mode: typeof viewMode) => {

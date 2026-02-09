@@ -34,6 +34,12 @@
   "editor": {
     "placeholder": "# Welcome to ShareMD\n\nStart writing your Markdown content here...\n\n## Features\n\n- Real-time preview\n- Sync scrolling\n- Export to image\n- GitHub Flavored Markdown support\n\n## Example\n\n```javascript\nconst greeting = 'Hello, ShareMD!';\nconsole.log(greeting);\n```\n\n**Bold** *Italic* ~~Strikethrough~~\n\n> Blockquote\n\n- List item 1\n- List item 2\n\n[Link](https://sharemd.top)\n"
   },
+  "preview": {
+    "emptyPlaceholder": "Start typing in the left editor to see the preview..."
+  },
+  "fullscreen": {
+    "exitHint": "Press ESC to exit fullscreen"
+  },
   "language": {
     "switch": "Switch Language",
     "en": "English",

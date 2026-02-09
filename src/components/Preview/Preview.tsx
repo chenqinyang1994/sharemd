@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeHighlight from 'rehype-highlight';
@@ -11,12 +12,14 @@ interface PreviewProps {
 }
 
 export const Preview: React.FC<PreviewProps> = ({ content, previewRef, previewContentRef }) => {
+  const { t } = useTranslation();
+
   return (
     <div className={styles.preview} ref={previewRef}>
       <div className={styles.previewContent} ref={previewContentRef}>
         {content.trim() === '' ? (
           <div className={styles.emptyState}>
-            <p>开始在左侧编辑器输入 Markdown 内容...</p>
+            <p>{t('preview.emptyPlaceholder')}</p>
           </div>
         ) : (
           <ReactMarkdown

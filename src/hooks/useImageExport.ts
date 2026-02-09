@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
+import { useTranslation } from 'react-i18next';
 
 export type ExportType = 'download' | 'copy' | null;
 
@@ -18,6 +19,7 @@ const loadHtml2Canvas = () => {
 };
 
 export const useImageExport = (previewRef: React.RefObject<HTMLElement>) => {
+  const { t } = useTranslation();
   const [exportingType, setExportingType] = useState<ExportType>(null);
   const [exportResult, setExportResult] = useState<ExportResult | null>(null);
 
@@ -78,11 +80,11 @@ export const useImageExport = (previewRef: React.RefObject<HTMLElement>) => {
         canvas.toBlob(resolve, 'image/png');
       });
 
-      if (!blob) throw new Error('生成图片失败');
+      if (!blob) throw new Error(t('message.downloadError'));
 
       if (action === 'download') {
         downloadImage(blob);
-        setExportResult({ success: true, message: '图片已开始下载' });
+        setExportResult({ success: true, message: t('message.downloadSuccess') });
       } else {
         try {
           // 预检查：如果不在安全上下文（如 http ip），直接抛出明确错误，进入降级流程
@@ -103,23 +105,23 @@ export const useImageExport = (previewRef: React.RefObject<HTMLElement>) => {
           });
 
           await navigator.clipboard.write([item]);
-          setExportResult({ success: true, message: '已复制图片到剪贴板' });
+          setExportResult({ success: true, message: t('message.copySuccess') });
         } catch (err) {
-          console.error('复制尝试失败:', err);
+          console.error('Copy attempt failed:', err);
 
           // 仅在明确失败时才降级下载
           downloadImage(blob);
 
-          let errorMsg = '复制失败，已自动下载';
+          let errorMsg = t('message.copyError');
 
           // 智能错误提示
           if (err instanceof Error) {
              if (err.message === 'InsecureContext') {
-               errorMsg = 'HTTP 环境不支持复制，已自动下载';
+               errorMsg = t('message.copyError');
              } else if (err.name === 'NotAllowedError') {
-               errorMsg = '复制权限被拒，已自动下载';
+               errorMsg = t('message.copyError');
              } else if (err.message.includes('unavailable')) {
-               errorMsg = '浏览器不支持复制图片，已自动下载';
+               errorMsg = t('message.copyError');
              }
           }
 
@@ -127,10 +129,10 @@ export const useImageExport = (previewRef: React.RefObject<HTMLElement>) => {
         }
       }
     } catch (error) {
-      console.error('导出流程异常:', error);
+      console.error('Export process error:', error);
       setExportResult({
         success: false,
-        message: '导出失败，请重试'
+        message: t('message.downloadError')
       });
     } finally {
       setExportingType(null);

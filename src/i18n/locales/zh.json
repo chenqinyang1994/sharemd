@@ -34,6 +34,12 @@
   "editor": {
     "placeholder": "# 欢迎使用 ShareMD\n\n在这里开始编写你的 Markdown 内容...\n\n## 功能特性\n\n- 实时预览\n- 同步滚动\n- 导出图片\n- 支持 GitHub Flavored Markdown\n\n## 示例\n\n```javascript\nconst greeting = '你好，ShareMD！';\nconsole.log(greeting);\n```\n\n**粗体** *斜体* ~~删除线~~\n\n> 引用块\n\n- 列表项 1\n- 列表项 2\n\n[链接](https://sharemd.top)\n"
   },
+  "preview": {
+    "emptyPlaceholder": "开始在左侧编辑器输入 Markdown 内容..."
+  },
+  "fullscreen": {
+    "exitHint": "按 ESC 退出全屏"
+  },
   "language": {
     "switch": "切换语言",
     "en": "English",
