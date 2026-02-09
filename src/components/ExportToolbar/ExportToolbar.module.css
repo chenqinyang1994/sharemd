@@ -20,8 +20,10 @@
 .exportButton {
   display: flex;
   align-items: center;
+  justify-content: center; /* Center content */
   gap: 6px;
   height: 32px;
+  width: 80px; /* Fixed width to prevent jitter */
   padding: 0 10px;
   border-radius: 6px;
   background: transparent;

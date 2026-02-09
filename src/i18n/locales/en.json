@@ -15,7 +15,7 @@
   "syncScroll": {
     "enabled": "Sync Scroll: ON",
     "disabled": "Sync Scroll: OFF",
-    "label": "Sync"
+    "label": "Sync Scroll"
   },
   "export": {
     "download": "Download Image",

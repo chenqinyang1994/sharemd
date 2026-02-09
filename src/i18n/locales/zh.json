@@ -15,7 +15,7 @@
   "syncScroll": {
     "enabled": "同步滚动：开",
     "disabled": "同步滚动：关",
-    "label": "同步"
+    "label": "同步滚动"
   },
   "export": {
     "download": "下载图片",
