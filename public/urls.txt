@@ -1,2 +1,3 @@
-sharemd.top/sitemap.xml
-sharemd.top/robots.txt
+https://sharemd.top/
+https://sharemd.top/sitemap.xml
+https://sharemd.top/robots.txt
