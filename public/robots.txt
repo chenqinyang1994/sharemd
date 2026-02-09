@@ -1,36 +1,14 @@
 # robots.txt for ShareMD
-# https://sharemd.app/robots.txt
 
 User-agent: *
 Allow: /
 
-# 禁止抓取开发资源
-Disallow: /src/
-Disallow: /node_modules/
-Disallow: /*.json$
-Disallow: /*.map$
-
 # 站点地图
-Sitemap: https://sharemd.app/sitemap.xml
+Sitemap: https://sharemd.top/sitemap.xml
 
-# 抓取延迟（毫秒）
+# 禁止抓取的路径（如果有）
+# Disallow: /api/
+# Disallow: /admin/
+
+# 抓取延迟（可选，防止服务器压力过大）
 Crawl-delay: 1
-
-# Google 特定设置
-User-agent: Googlebot
-Allow: /
-
-# Bing 特定设置
-User-agent: Bingbot
-Allow: /
-
-# 百度特定设置
-User-agent: Baiduspider
-Allow: /
-
-# 禁止某些爬虫
-User-agent: AhrefsBot
-Disallow: /
-
-User-agent: SemrushBot
-Disallow: /
