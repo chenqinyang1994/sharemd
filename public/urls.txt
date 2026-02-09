@@ -1,0 +1,2 @@
+sharemd.top/sitemap.xml
+sharemd.top/robots.txt
