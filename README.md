@@ -1,6 +1,8 @@
 # ShareMD - 现代化 Markdown 编辑器
 
-![ShareMD Logo](src/assets/images/logo.webp)
+<p align="center">
+  <img src="src/assets/images/logo.webp" alt="ShareMD Logo" width="200" />
+</p>
 
 > 🚀 专为写作与分享而生的在线 Markdown 编辑器
 >
