@@ -49,5 +49,8 @@
     "switch": "切换语言",
     "en": "English",
     "zh": "中文"
+  },
+  "watermark": {
+    "generatedBy": "本图片由以下网站生成"
   }
 }

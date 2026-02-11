@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
+import QRCode from 'qrcode';
 
 export type ExportType = 'download' | 'copy' | null;
 
@@ -16,6 +17,87 @@ const loadHtml2Canvas = () => {
     html2canvasPromise = import('html2canvas');
   }
   return html2canvasPromise;
+};
+
+// 创建水印元素
+const createWatermark = async (t: (key: string) => string): Promise<HTMLElement> => {
+  const watermark = document.createElement('div');
+  watermark.id = 'sharemd-watermark';
+  watermark.style.cssText = `
+    margin-top: 40px;
+    padding: 20px 30px;
+    background: linear-gradient(135deg, #f5f7fa 0%, #e8ecf1 100%);
+    border-top: 2px solid #e1e4e8;
+    border-radius: 0 0 8px 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif;
+  `;
+
+  // 左侧文字
+  const textContainer = document.createElement('div');
+  textContainer.style.cssText = `
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  `;
+
+  const mainText = document.createElement('div');
+  mainText.style.cssText = `
+    font-size: 14px;
+    color: #24292e;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+  `;
+  mainText.textContent = t('watermark.generatedBy');
+
+  const urlText = document.createElement('div');
+  urlText.style.cssText = `
+    font-size: 13px;
+    color: #0366d6;
+    font-weight: 400;
+    letter-spacing: 0.2px;
+  `;
+  urlText.textContent = 'https://sharemd.top/';
+
+  textContainer.appendChild(mainText);
+  textContainer.appendChild(urlText);
+
+  // 右侧二维码
+  const qrContainer = document.createElement('div');
+  qrContainer.style.cssText = `
+    flex-shrink: 0;
+    padding: 8px;
+    background: white;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  `;
+
+  const qrCanvas = document.createElement('canvas');
+  await QRCode.toCanvas(qrCanvas, 'https://sharemd.top/', {
+    width: 80,
+    margin: 0,
+    color: {
+      dark: '#24292e',
+      light: '#ffffff',
+    },
+    errorCorrectionLevel: 'M',
+  });
+  qrCanvas.style.cssText = `
+    display: block;
+    width: 80px;
+    height: 80px;
+  `;
+
+  qrContainer.appendChild(qrCanvas);
+
+  watermark.appendChild(textContainer);
+  watermark.appendChild(qrContainer);
+
+  return watermark;
 };
 
 export const useImageExport = (previewRef: React.RefObject<HTMLElement>) => {
@@ -54,6 +136,8 @@ export const useImageExport = (previewRef: React.RefObject<HTMLElement>) => {
     setExportingType(action);
     setExportResult(null);
 
+    let watermark: HTMLElement | null = null;
+
     try {
       await document.fonts.ready;
       const module = await loadHtml2Canvas();
@@ -65,6 +149,13 @@ export const useImageExport = (previewRef: React.RefObject<HTMLElement>) => {
         document.activeElement.blur();
       }
       window.focus();
+
+      // 创建并插入水印
+      watermark = await createWatermark(t);
+      element.appendChild(watermark);
+
+      // 等待水印渲染完成
+      await new Promise(resolve => setTimeout(resolve, 100));
 
       const canvas = await html2canvas(element, {
         backgroundColor: '#ffffff',
@@ -135,6 +226,10 @@ export const useImageExport = (previewRef: React.RefObject<HTMLElement>) => {
         message: t('message.downloadError')
       });
     } finally {
+      // 移除水印
+      if (watermark && watermark.parentNode) {
+        watermark.parentNode.removeChild(watermark);
+      }
       setExportingType(null);
     }
   };
